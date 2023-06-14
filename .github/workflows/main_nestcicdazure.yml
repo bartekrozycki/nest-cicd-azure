@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     # Map a step output to a job output
     outputs:
-      digest: ${{ steps.docker_build.outputs.digest }}
+      image: ${{ steps.meta.outputs.tags }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -62,7 +62,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERSION }}
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
       - name: Build and push Docker image
         id: docker_build
@@ -90,4 +90,4 @@ jobs:
         with:
           app-name: ${{ env.APP_NAME }}
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_2F7DF488340C407A90F7BA7124811112 }}
-          images: 'ghcr.io/${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERSION }}'
+          images: 'ghcr.io/${{ needs.job.build.outputs.image }}'
