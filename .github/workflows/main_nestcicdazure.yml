@@ -13,7 +13,7 @@ jobs:
   build:
     strategy:
       matrix:
-        node-version: [12.x, 14.x, 16.x] # This should match the versions you need.
+        node-version: [18.x] # This should match the versions you need.
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
