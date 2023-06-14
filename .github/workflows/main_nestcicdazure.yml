@@ -1,5 +1,6 @@
 name: Build push image and deploy to azure WebApp
 
+
 on:
   push:
     branches:
@@ -16,6 +17,7 @@ jobs:
       matrix:
         node-version: [18.x] # This should match the versions you need.
     runs-on: ubuntu-latest
+    # Map a step output to a job output
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -54,19 +56,16 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-buildx-
 
-      - name: Extract metadata (tags, labels) for Docker
-        id: meta
-        uses: docker/metadata-action@v4
-        with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+      - name: Lowercase the repo name and username
+        run: echo "REPO=${GITHUB_REPOSITORY,,}" >>${GITHUB_ENV}
 
       - name: Build and push Docker image
+        id: docker_build
         uses: docker/build-push-action@v3
         with:
           context: .
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+          tags: ghcr.io/${{ env.REPO }}:${{ github.sha }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
 
@@ -77,12 +76,13 @@ jobs:
       name: 'production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     steps:
-      - name: Lowercase the repo name
+      - name: Lowercase the repo name and username
         run: echo "REPO=${GITHUB_REPOSITORY,,}" >>${GITHUB_ENV}
+
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ env.APP_NAME }}
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_2F7DF488340C407A90F7BA7124811112 }}
-          images: 'ghcr.io/${{ env.IMAGE_NAME }}:main'
+          images: 'ghcr.io/${{ env.REPO }}:${{ github.sha }}'
