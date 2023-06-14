@@ -11,11 +11,10 @@ COPY package*.json ./
 COPY ./dist ./dist
 
 # Install dependencies
-RUN npm ci
-
-
-# Expose the port that the NestJS application listens on
-EXPOSE 3000
+RUN npm ci --only=production
 
 # Set the command to run the application when the container starts
 CMD [ "npm", "run", "start:prod" ]
+
+# Expose the port that the NestJS application listens on
+EXPOSE 3000
