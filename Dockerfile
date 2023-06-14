@@ -14,9 +14,6 @@ COPY ./dist ./dist
 RUN npm ci --only=production
 
 
-# Copy the rest of the application code to the container
-COPY . .
-
 # Expose the port that the NestJS application listens on
 EXPOSE 3000
 
