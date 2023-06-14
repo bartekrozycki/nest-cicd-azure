@@ -13,7 +13,7 @@ COPY package*.json ./
 COPY ./dist ./dist
 
 # Install dependencies
-RUN npm ci --only=production
+RUN npm ci
 
 
 # Expose the port that the NestJS application listens on
