@@ -80,4 +80,5 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'vnestapp'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_2F7DF488340C407A90F7BA712
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_2F7DF488340C407A90F7BA7124811112 }}
+          images: 'ghcr.io/${{ env.REPO }}:${{ github.sha }}'
