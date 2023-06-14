@@ -1,9 +1,10 @@
 name: Build push image and deploy to azure WebApp
 
+
 on:
   push:
-    tags:
-      - '*'
+    branches:
+      - main
 
 env:
   APP_NAME: vnestapp
