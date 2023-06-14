@@ -58,6 +58,6 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@85270a1854658d167ab239bce43949edb336fa7c
         with:
-          app-name: 'nestcicdazure'
+          app-name: 'vnestapp'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_2F7DF488340C407A90F7BA7124811112 }}
           images: 'ghcr.io/${{ env.REPO }}:${{ github.sha }}'
