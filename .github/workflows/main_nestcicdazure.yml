@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     # Map a step output to a job output
     outputs:
-      imageid: ${{ steps.docker_build.outputs.imageid }}
+      digest: ${{ steps.docker_build.outputs.digest }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -89,4 +89,4 @@ jobs:
         with:
           app-name: ${{ env.APP_NAME }}
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_2F7DF488340C407A90F7BA7124811112 }}
-          images: 'ghcr.io/${{ env.IMAGE_NAME }}@${{ needs.build.outputs.imageid }}'
+          images: 'ghcr.io/${{ env.IMAGE_NAME }}@${{ needs.build.outputs.digest }}'
