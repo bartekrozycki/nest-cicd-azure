@@ -85,8 +85,10 @@ jobs:
         run: echo "REPO=${GITHUB_REPOSITORY,,}" >>${GITHUB_ENV}
       - name: Remove "sha256:" prefix from imageid
         id: remove-prefix
-        run:
-          echo "::set-output name=imageid_without_prefix::${{ needs.build.outputs.imageid#sha256: }}"
+        run: |
+          echo "imageid=${{ needs.build.outputs.imageid }}"
+          imageid_without_prefix=$(echo ${{ needs.build.outputs.imageid }} | sed 's/^sha256://')
+          echo "::set-output name=imageid_without_prefix::$imageid_without_prefix"
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
