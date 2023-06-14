@@ -72,7 +72,7 @@ jobs:
       - name: Get image SHA
         id: get-image-sha
         run: |
-          echo "::set-output name=sha::$(docker inspect --format='{{.Id}}' ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:main"
+          echo "::set-output name=sha::$(docker inspect --format='{{.Id}}' ${{ env.IMAGE_NAME }}:main"
     
 
 
