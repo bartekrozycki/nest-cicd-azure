@@ -69,12 +69,6 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
-      - name: Get image SHA
-        id: get-image-sha
-        run: |
-          echo "::set-output name=sha::$(docker inspect --format='{{.Id}}' ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:main)"
-    
-
 
   deploy:
     runs-on: ubuntu-latest
@@ -91,4 +85,4 @@ jobs:
         with:
           app-name: ${{ env.APP_NAME }}
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_2F7DF488340C407A90F7BA7124811112 }}
-          images: 'ghcr.io/${{ env.IMAGE_NAME }}:${{ needs.build.steps.get-image-sha.outputs.sha }}'
+          images: 'ghcr.io/${{ env.IMAGE_NAME }}:${{ needs.build.steps.docker_build.outputs.digest }}'
