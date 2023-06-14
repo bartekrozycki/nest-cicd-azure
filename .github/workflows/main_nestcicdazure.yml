@@ -11,7 +11,7 @@ env:
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-  build:
+  build_and_push:
     strategy:
       matrix:
         node-version: [18.x] # This should match the versions you need.
@@ -90,4 +90,4 @@ jobs:
         with:
           app-name: ${{ env.APP_NAME }}
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_2F7DF488340C407A90F7BA7124811112 }}
-          images: 'ghcr.io/${{ env.IMAGE_NAME }}:${{ needs.build_and_push.outputs.digest }}'
+          images: 'ghcr.io/${{ env.IMAGE_NAME }}:${{ needs.build_and_push.outputs.imageid }}'
