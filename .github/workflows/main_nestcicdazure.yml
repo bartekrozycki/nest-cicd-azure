@@ -86,7 +86,7 @@ jobs:
       - name: Remove "sha256:" prefix from imageid
         id: remove-prefix
         run:
-          echo "::set-output name=imageid_without_prefix::${{ needs.build.outputs.imageid#sha256: } }"
+          echo "::set-output name=imageid_without_prefix::${{ needs.build.outputs.imageid#sha256: }}"
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
