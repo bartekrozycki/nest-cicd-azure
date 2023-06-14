@@ -9,6 +9,7 @@ env:
   APP_NAME: vnestapp
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
+  IMAGE_VERSION: 1.0
 
 jobs:
   build:
@@ -61,7 +62,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERSION }}
 
       - name: Build and push Docker image
         id: docker_build
@@ -89,4 +90,4 @@ jobs:
         with:
           app-name: ${{ env.APP_NAME }}
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_2F7DF488340C407A90F7BA7124811112 }}
-          images: 'ghcr.io/${{ env.IMAGE_NAME }}@${{ needs.build.outputs.digest }}'
+          images: 'ghcr.io/${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERSION }}'
