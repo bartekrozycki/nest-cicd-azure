@@ -23,13 +23,27 @@ export class AppController {
       padding: 10px;
       text-align: center;
     }
+
+    /* Center the content vertically */
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+    }
   </style>
 </head>
 <body>
 
-  <div class="container mt-5">
-    <h1>Joke</h1>
-    <p id="joke" class="lead">${joke}</p>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <h1 class="text-center">Joke</h1>
+        <p id="joke" class="lead text-center">${joke}</p>
+      </div>
+    </div>
   </div>
 
   <footer class="footer">
@@ -43,7 +57,6 @@ export class AppController {
   </script>
 </body>
 </html>
-
 
 `;
   }
