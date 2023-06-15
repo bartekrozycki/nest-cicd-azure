@@ -47,12 +47,6 @@ export class AppController {
     </div>
   </div>
 
-  <footer class="footer">
-    <div class="container">
-      <p>Deployment Hash: <span id="deployment-hash">${process.env.WEBSITE_INSTANCE_ID}</span></p>
-    </div>
-  </footer>
-
   <!-- Bootstrap JS from CDN -->
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   </script>
