@@ -31,6 +31,7 @@ export class AppController {
 
     body {
       display: flex;
+      flex-direction: column;
       align-items: center;
     }
   </style>
